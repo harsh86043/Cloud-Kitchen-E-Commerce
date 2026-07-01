@@ -9,8 +9,14 @@ export function buildFrameUrl(params: {
   frameNumber: number;
   padLength: number;
   format: string;
+  frameCount?: number;
 }): string {
-  const padded = String(params.frameNumber).padStart(params.padLength, '0');
+  const maxFrames = params.frameCount || 81;
+  const safeFrameNumber = Math.min(
+    maxFrames,
+    Math.max(1, Math.round(params.frameNumber))
+  );
+  const padded = String(safeFrameNumber).padStart(params.padLength, '0');
   const basePathClean = params.basePath.endsWith('/') 
     ? params.basePath.slice(0, -1) 
     : params.basePath;

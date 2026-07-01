@@ -57,7 +57,7 @@ export default function CinematicDishExperience({
     preloadProgress,
     hasErrors,
     posterImage
-  } = useFramePreloader(frameSet, screenWidth);
+  } = useFramePreloader(frameSet, screenWidth, dish.imageUrl);
 
   // Scroll Trigger linking
   useEffect(() => {

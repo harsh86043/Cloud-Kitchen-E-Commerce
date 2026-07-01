@@ -17,7 +17,8 @@ interface PreloaderResult {
 
 export function useFramePreloader(
   frameSet: CinematicFrameSet,
-  screenWidth: number
+  screenWidth: number,
+  fallbackImageUrl?: string
 ): PreloaderResult {
   const [loadedFrames, setLoadedFrames] = useState<HTMLImageElement[]>([]);
   const [preloadProgress, setPreloadProgress] = useState(0);
@@ -51,6 +52,20 @@ export function useFramePreloader(
     };
     posterImg.onerror = () => {
       console.warn(`[Cinematic Preloader] Failed to load poster url: ${frameSet.posterUrl}`);
+      if (fallbackImageUrl) {
+        const fallbackImg = new Image();
+        fallbackImg.referrerPolicy = 'no-referrer';
+        fallbackImg.crossOrigin = 'anonymous';
+        fallbackImg.src = fallbackImageUrl;
+        fallbackImg.onload = () => {
+          if (!isCancelled) {
+            setPosterImage(fallbackImg);
+          }
+        };
+        fallbackImg.onerror = () => {
+          console.warn(`[Cinematic Preloader] Failed to load fallback image url: ${fallbackImageUrl}`);
+        };
+      }
     };
 
     let basePath = frameSet.basePath;
@@ -85,6 +100,7 @@ export function useFramePreloader(
           frameNumber: index + 1,
           padLength: frameSet.padLength,
           format,
+          frameCount,
         });
 
         img.onload = () => {

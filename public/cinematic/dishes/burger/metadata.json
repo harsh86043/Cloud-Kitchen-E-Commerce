@@ -1,0 +1,14 @@
+{
+  "id": "burger-explode-desktop",
+  "dishId": "burger",
+  "slug": "burger",
+  "frameCount": 81,
+  "format": "webp",
+  "basePath": "/cinematic/dishes/burger/desktop",
+  "filePrefix": "frame_",
+  "padLength": 4,
+  "posterUrl": "/cinematic/dishes/burger/poster.webp",
+  "width": 1920,
+  "height": 1080,
+  "objectFit": "cover"
+}

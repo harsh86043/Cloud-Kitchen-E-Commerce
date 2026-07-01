@@ -72,6 +72,7 @@ export interface Dish {
   animationDesktopBasePath?: string;
   animationMobileBasePath?: string;
   supportsCinematicExperience: boolean;
+  cinematicConfig?: any;
 }
 
 export interface CartItem {

@@ -90,6 +90,47 @@ const INITIAL_DISHES: Dish[] = [
     animationFrameFormat: 'webp',
     animationDesktopBasePath: '/cinematic/dishes/burger/desktop',
     animationMobileBasePath: '/cinematic/dishes/burger/desktop',
+    cinematicConfig: {
+      enabled: true,
+      frameSetId: 'burger-explode-desktop',
+      fallbackPosterUrl: '/cinematic/dishes/burger/poster.webp',
+      minDesktopWidth: 768,
+      disableOnLowEndDevice: true,
+      sections: [
+        {
+          id: 'intro',
+          title: 'Built layer by layer',
+          description: 'A premium burger stacked with a glossy brioche bun, juicy patties, melted cheese, fresh vegetables, and signature sauce.',
+          startProgress: 0,
+          endProgress: 0.25,
+          placement: 'left'
+        },
+        {
+          id: 'patties',
+          title: 'Juicy double patty',
+          description: 'Two smashed patties with rich texture, melted cheddar, and a fresh-off-the-grill look.',
+          startProgress: 0.25,
+          endProgress: 0.5,
+          placement: 'right'
+        },
+        {
+          id: 'freshness',
+          title: 'Fresh toppings',
+          description: 'Crisp lettuce, tomato, onion, and pickles add freshness, crunch, and balance.',
+          startProgress: 0.5,
+          endProgress: 0.75,
+          placement: 'left'
+        },
+        {
+          id: 'order',
+          title: 'Ready to order?',
+          description: 'Customize your burger, add it to the cart, and complete checkout in seconds.',
+          startProgress: 0.75,
+          endProgress: 1,
+          placement: 'bottom'
+        }
+      ]
+    }
   },
   {
     id: 'dish-2',
@@ -115,7 +156,7 @@ const INITIAL_DISHES: Dish[] = [
     ],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    supportsCinematicExperience: true,
+    supportsCinematicExperience: false,
   },
   {
     id: 'dish-3',
@@ -142,7 +183,7 @@ const INITIAL_DISHES: Dish[] = [
     ],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    supportsCinematicExperience: true,
+    supportsCinematicExperience: false,
   },
   {
     id: 'dish-4',
@@ -357,10 +398,11 @@ export const getDishes = (): Dish[] => {
   }
   
   // Self-heal/update the burger dish configuration in localStorage if it is legacy or missing fields
+  let updatedLocal = false;
   const burgerIndex = data.findIndex(d => d.slug === 'truffle-beef-burger');
   if (burgerIndex > -1) {
     const burger = data[burgerIndex];
-    if (!burger.animationFrameSetId || burger.animationFrameCount !== 81) {
+    if (!burger.animationFrameSetId || burger.animationFrameCount !== 81 || !burger.cinematicConfig) {
       burger.supportsCinematicExperience = true;
       burger.animationPosterUrl = '/cinematic/dishes/burger/poster.webp';
       burger.animationFrameSetId = 'burger-explode-desktop';
@@ -368,8 +410,25 @@ export const getDishes = (): Dish[] => {
       burger.animationFrameFormat = 'webp';
       burger.animationDesktopBasePath = '/cinematic/dishes/burger/desktop';
       burger.animationMobileBasePath = '/cinematic/dishes/burger/desktop';
-      setLocalStorageItem<Dish[]>(STORAGE_KEYS.DISHES, data);
+      
+      const initialBurger = INITIAL_DISHES.find(d => d.slug === 'truffle-beef-burger');
+      if (initialBurger) {
+        burger.cinematicConfig = initialBurger.cinematicConfig;
+      }
+      updatedLocal = true;
     }
+  }
+
+  // Disable cinematic mode on all other dishes in local storage to enforce "only burger"
+  data.forEach(dish => {
+    if (dish.slug !== 'truffle-beef-burger' && dish.supportsCinematicExperience) {
+      dish.supportsCinematicExperience = false;
+      updatedLocal = true;
+    }
+  });
+
+  if (updatedLocal) {
+    setLocalStorageItem<Dish[]>(STORAGE_KEYS.DISHES, data);
   }
   
   return data;

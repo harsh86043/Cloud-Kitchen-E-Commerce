@@ -86,7 +86,7 @@ export default function CinematicStage({
       {/* Live Stage Frame Identifier for Tech Vibe (Aesthetic metadata) */}
       <div className="absolute bottom-4 left-4 z-10 font-mono text-[9px] text-slate-500 flex items-center gap-1.5 pointer-events-none">
         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-        <span>STAGE ACTIVE • FRAME_{Math.round(progress * (frameSet.frameCount - 1) + 1).toString().padStart(4, '0')}</span>
+        <span>STAGE ACTIVE • FRAME_{Math.min(frameSet.frameCount, Math.max(1, Math.round(progress * (frameSet.frameCount - 1) + 1))).toString().padStart(4, '0')}</span>
       </div>
 
     </div>
