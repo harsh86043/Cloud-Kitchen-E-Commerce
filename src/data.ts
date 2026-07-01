@@ -84,6 +84,12 @@ const INITIAL_DISHES: Dish[] = [
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     supportsCinematicExperience: true,
+    animationPosterUrl: '/cinematic/dishes/burger/poster.webp',
+    animationFrameSetId: 'burger-explode-desktop',
+    animationFrameCount: 81,
+    animationFrameFormat: 'webp',
+    animationDesktopBasePath: '/cinematic/dishes/burger/desktop',
+    animationMobileBasePath: '/cinematic/dishes/burger/desktop',
   },
   {
     id: 'dish-2',
@@ -349,6 +355,23 @@ export const getDishes = (): Dish[] => {
     setLocalStorageItem<Dish[]>(STORAGE_KEYS.DISHES, INITIAL_DISHES);
     return INITIAL_DISHES;
   }
+  
+  // Self-heal/update the burger dish configuration in localStorage if it is legacy or missing fields
+  const burgerIndex = data.findIndex(d => d.slug === 'truffle-beef-burger');
+  if (burgerIndex > -1) {
+    const burger = data[burgerIndex];
+    if (!burger.animationFrameSetId || burger.animationFrameCount !== 81) {
+      burger.supportsCinematicExperience = true;
+      burger.animationPosterUrl = '/cinematic/dishes/burger/poster.webp';
+      burger.animationFrameSetId = 'burger-explode-desktop';
+      burger.animationFrameCount = 81;
+      burger.animationFrameFormat = 'webp';
+      burger.animationDesktopBasePath = '/cinematic/dishes/burger/desktop';
+      burger.animationMobileBasePath = '/cinematic/dishes/burger/desktop';
+      setLocalStorageItem<Dish[]>(STORAGE_KEYS.DISHES, data);
+    }
+  }
+  
   return data;
 };
 

@@ -25,6 +25,8 @@ export interface CinematicFrameSet {
   tablet?: CinematicFrameVariant;
   mobile?: CinematicFrameVariant;
   posterUrl: string;
+  width?: number;
+  height?: number;
 }
 
 export interface CinematicSection {

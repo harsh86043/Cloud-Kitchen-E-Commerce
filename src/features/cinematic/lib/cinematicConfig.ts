@@ -8,28 +8,28 @@ import { CinematicFrameSet, CinematicDishConfig, CinematicSection } from '../typ
 // Mock frame sets for testing and demonstration
 export const DEMO_FRAME_SETS: Record<string, CinematicFrameSet> = {
   'truffle-beef-burger': {
-    id: 'fs-burger',
-    dishId: 'dish-1',
-    frameCount: 30, // 30 frames for a lightweight demo sequence
-    format: 'webp',
-    basePath: '/cinematic/dishes/truffle-beef-burger/desktop',
-    filePrefix: 'frame_',
+    id: "burger-explode-desktop",
+    dishId: "burger",
+    frameCount: 81,
+    format: "webp",
+    basePath: "/cinematic/dishes/burger/desktop",
+    filePrefix: "frame_",
     padLength: 4,
-    desktop: {
-      basePath: '/cinematic/dishes/truffle-beef-burger/desktop',
-      width: 1920,
-      height: 1080,
-      frameCount: 30,
-      format: 'webp'
-    },
-    mobile: {
-      basePath: '/cinematic/dishes/truffle-beef-burger/mobile',
-      width: 1080,
-      height: 1920,
-      frameCount: 30,
-      format: 'webp'
-    },
-    posterUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200&auto=format&fit=crop&q=80',
+    posterUrl: "/cinematic/dishes/burger/poster.webp",
+    width: 1920,
+    height: 1080,
+  },
+  'burger': {
+    id: "burger-explode-desktop",
+    dishId: "burger",
+    frameCount: 81,
+    format: "webp",
+    basePath: "/cinematic/dishes/burger/desktop",
+    filePrefix: "frame_",
+    padLength: 4,
+    posterUrl: "/cinematic/dishes/burger/poster.webp",
+    width: 1920,
+    height: 1080,
   },
   'margherita-extra': {
     id: 'fs-pizza',
@@ -154,10 +154,18 @@ const DEFAULT_SECTIONS_NOODLES: CinematicSection[] = [
 
 export const DEMO_CONFIGS: Record<string, CinematicDishConfig> = {
   'truffle-beef-burger': {
-    frameSetId: 'fs-burger',
+    frameSetId: 'burger-explode-desktop',
     enabled: true,
     sections: DEFAULT_SECTIONS_BURGER,
-    fallbackPosterUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200&auto=format&fit=crop&q=80',
+    fallbackPosterUrl: '/cinematic/dishes/burger/poster.webp',
+    minDesktopWidth: 768,
+    disableOnLowEndDevice: true,
+  },
+  'burger': {
+    frameSetId: 'burger-explode-desktop',
+    enabled: true,
+    sections: DEFAULT_SECTIONS_BURGER,
+    fallbackPosterUrl: '/cinematic/dishes/burger/poster.webp',
     minDesktopWidth: 768,
     disableOnLowEndDevice: true,
   },
