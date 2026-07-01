@@ -1,0 +1,6 @@
+{
+  "name": "Cloud Kitchen E-Commerce",
+  "description": "A high-performance, responsive e-commerce foundation for a modern cloud kitchen, featuring customer storefront and admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
