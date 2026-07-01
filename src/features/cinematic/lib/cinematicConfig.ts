@@ -48,7 +48,7 @@ export const DEMO_FRAME_SETS: Record<string, CinematicFrameSet> = {
     dishId: 'pizza',
     frameCount: 72,
     format: 'webp',
-    basePath: '/cinematic/dishes/pizza/desktop',
+    basePath: '/cinematic/dishes/pizza',
     filePrefix: 'frame_',
     padLength: 4,
     posterUrl: '/cinematic/dishes/pizza/poster.webp',

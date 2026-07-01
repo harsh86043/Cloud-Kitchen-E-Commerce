@@ -183,11 +183,11 @@ const INITIAL_DISHES: Dish[] = [
     animationFrameSetId: "pizza-toppings-fall-desktop",
     cinematicConfig: {
       enabled: true,
-      forceCinematicPage: false,
+      forceCinematicPage: true,
       frameSetId: "pizza-toppings-fall-desktop",
       fallbackPosterUrl: "/cinematic/dishes/pizza/poster.webp",
       frameCount: 72,
-      basePath: "/cinematic/dishes/pizza/desktop",
+      basePath: "/cinematic/dishes/pizza",
       filePrefix: "frame_",
       padLength: 4,
       format: "webp",
@@ -212,7 +212,6 @@ const INITIAL_DISHES: Dish[] = [
     ],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    supportsCinematicExperience: false,
   },
   {
     id: 'dish-3',
@@ -466,10 +465,24 @@ export const getDishes = (): Dish[] => {
 
   // Self-heal variants for Pizza and Noodles if they match legacy
   const pizzaIndex = data.findIndex(d => d.slug === 'margherita-extra');
-  if (pizzaIndex > -1 && data[pizzaIndex].variants[0]?.name === 'Personal 10"') {
-    data[pizzaIndex].variants = INITIAL_DISHES.find(d => d.slug === 'margherita-extra')?.variants || [];
-    data[pizzaIndex].addons = INITIAL_DISHES.find(d => d.slug === 'margherita-extra')?.addons || [];
-    updatedLocal = true;
+  if (pizzaIndex > -1) {
+    if (data[pizzaIndex].variants[0]?.name === 'Personal 10"') {
+      data[pizzaIndex].variants = INITIAL_DISHES.find(d => d.slug === 'margherita-extra')?.variants || [];
+      data[pizzaIndex].addons = INITIAL_DISHES.find(d => d.slug === 'margherita-extra')?.addons || [];
+      updatedLocal = true;
+    }
+    
+    // Self-heal cinematic config for Pizza
+    if (!data[pizzaIndex].cinematicConfig || data[pizzaIndex].cinematicConfig?.forceCinematicPage !== true) {
+      data[pizzaIndex].supportsCinematicExperience = true;
+      data[pizzaIndex].animationPosterUrl = '/cinematic/dishes/pizza/poster.webp';
+      data[pizzaIndex].animationFrameSetId = 'pizza-toppings-fall-desktop';
+      const initialPizza = INITIAL_DISHES.find(d => d.slug === 'margherita-extra');
+      if (initialPizza && initialPizza.cinematicConfig) {
+        data[pizzaIndex].cinematicConfig = initialPizza.cinematicConfig;
+      }
+      updatedLocal = true;
+    }
   }
 
   const noodlesIndex = data.findIndex(d => d.slug === 'szechuan-chili-noodles');
@@ -499,9 +512,9 @@ export const getDishes = (): Dish[] => {
     }
   }
 
-  // Disable cinematic mode on all other dishes in local storage to enforce "only burger"
+  // Disable cinematic mode on all other dishes in local storage to enforce "only burger and pizza"
   data.forEach(dish => {
-    if (dish.slug !== 'smoked-truffle-beef-burger' && dish.supportsCinematicExperience) {
+    if (dish.slug !== 'smoked-truffle-beef-burger' && dish.slug !== 'margherita-extra' && dish.supportsCinematicExperience) {
       dish.supportsCinematicExperience = false;
       updatedLocal = true;
     }
