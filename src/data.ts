@@ -60,7 +60,7 @@ const INITIAL_CATEGORIES: Category[] = [
 const INITIAL_DISHES: Dish[] = [
   {
     id: 'dish-1',
-    slug: 'truffle-beef-burger',
+    slug: 'smoked-truffle-beef-burger',
     name: 'Smoked Truffle Beef Burger',
     description: '150g grass-fed beef patty, melted swiss cheese, sautéed wild mushrooms, white truffle aioli, toasted brioche bun. Served with a side of sea salt fries.',
     categoryId: 'cat-1',
@@ -70,8 +70,37 @@ const INITIAL_DISHES: Dish[] = [
     isAvailable: true,
     isVeg: false,
     spiceLevel: 0,
-    preparationTimeMinutes: 15,
+    preparationTimeMinutes: 18,
     tags: ['Best Seller', 'Gourmet'],
+    calories: 740,
+    proteinGrams: 38,
+    carbsGrams: 52,
+    fatGrams: 42,
+    ingredients: [
+      "Toasted brioche bun",
+      "Double smashed burger patties",
+      "Melted cheddar cheese",
+      "Fresh lettuce",
+      "Tomato slices",
+      "Onion rings",
+      "Pickles",
+      "Signature burger sauce",
+      "Sesame seeds"
+    ],
+    contains: [
+      "Gluten",
+      "Dairy",
+      "Egg-based sauce",
+      "Sesame",
+      "Onion",
+      "Pickles"
+    ],
+    nutritionHighlights: [
+      "High-protein double patty burger",
+      "Rich cheddar cheese",
+      "Fresh vegetables for crunch and balance",
+      "House-style creamy sauce"
+    ],
     variants: [
       { id: 'v-1', name: 'Single Patty', price: 16.99 },
       { id: 'v-2', name: 'Double Patty (+ $4.00)', price: 20.99 }
@@ -94,38 +123,47 @@ const INITIAL_DISHES: Dish[] = [
       enabled: true,
       frameSetId: 'burger-explode-desktop',
       fallbackPosterUrl: '/cinematic/dishes/burger/poster.webp',
-      minDesktopWidth: 768,
-      disableOnLowEndDevice: true,
+      forceCinematicPage: true,
+      minDesktopWidth: 0,
+      disableOnLowEndDevice: false,
       sections: [
         {
-          id: 'intro',
+          id: 'overview',
           title: 'Built layer by layer',
           description: 'A premium burger stacked with a glossy brioche bun, juicy patties, melted cheese, fresh vegetables, and signature sauce.',
           startProgress: 0,
-          endProgress: 0.25,
+          endProgress: 0.2,
           placement: 'left'
         },
         {
-          id: 'patties',
-          title: 'Juicy double patty',
-          description: 'Two smashed patties with rich texture, melted cheddar, and a fresh-off-the-grill look.',
-          startProgress: 0.25,
-          endProgress: 0.5,
+          id: 'ingredients',
+          title: 'Fresh ingredients',
+          description: 'Made with toasted brioche, double patties, cheddar, lettuce, tomato, onion, pickles, and our signature sauce.',
+          startProgress: 0.2,
+          endProgress: 0.45,
           placement: 'right'
         },
         {
-          id: 'freshness',
-          title: 'Fresh toppings',
-          description: 'Crisp lettuce, tomato, onion, and pickles add freshness, crunch, and balance.',
-          startProgress: 0.5,
-          endProgress: 0.75,
+          id: 'nutrition',
+          title: '740 calories',
+          description: 'A filling high-protein burger with approximately 38g protein, 52g carbs, and 42g fat.',
+          startProgress: 0.45,
+          endProgress: 0.65,
           placement: 'left'
+        },
+        {
+          id: 'contains',
+          title: 'What it contains',
+          description: 'Contains gluten, dairy, sesame, onion, pickles, and an egg-based creamy burger sauce.',
+          startProgress: 0.65,
+          endProgress: 0.82,
+          placement: 'right'
         },
         {
           id: 'order',
           title: 'Ready to order?',
-          description: 'Customize your burger, add it to the cart, and complete checkout in seconds.',
-          startProgress: 0.75,
+          description: 'Customize your burger, choose add-ons, and add it to your cart.',
+          startProgress: 0.82,
           endProgress: 1,
           placement: 'bottom'
         }
@@ -140,19 +178,37 @@ const INITIAL_DISHES: Dish[] = [
     categoryId: 'cat-2',
     price: 14.50,
     imageUrl: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&auto=format&fit=crop&q=80',
+    supportsCinematicExperience: true,
+    animationPosterUrl: "/cinematic/dishes/pizza/poster.webp",
+    animationFrameSetId: "pizza-toppings-fall-desktop",
+    cinematicConfig: {
+      enabled: true,
+      forceCinematicPage: false,
+      frameSetId: "pizza-toppings-fall-desktop",
+      fallbackPosterUrl: "/cinematic/dishes/pizza/poster.webp",
+      frameCount: 72,
+      basePath: "/cinematic/dishes/pizza/desktop",
+      filePrefix: "frame_",
+      padLength: 4,
+      format: "webp",
+      objectFit: "contain",
+      disableOnLowEndDevice: false
+    },
     isAvailable: true,
     isVeg: true,
     spiceLevel: 0,
     preparationTimeMinutes: 12,
     tags: ['Classic', 'Vegetarian'],
     variants: [
-      { id: 'v-3', name: 'Personal 10"', price: 14.50 },
-      { id: 'v-4', name: 'Sharing 14" (+ $5.00)', price: 19.50 }
+      { id: 'v-3', name: 'Regular', price: 14.50 },
+      { id: 'v-4', name: 'Medium (+ $3.00)', price: 17.50 },
+      { id: 'v-4a', name: 'Large (+ $5.00)', price: 19.50 }
     ],
     addons: [
-      { id: 'a-4', name: 'Arugula', price: 1.50 },
-      { id: 'a-5', name: 'Truffle Oil Drizzle', price: 2.00 },
-      { id: 'a-6', name: 'Extra Mozzarella', price: 2.50 }
+      { id: 'a-4', name: 'Extra Cheese', price: 1.50 },
+      { id: 'a-5', name: 'Jalapenos', price: 1.00 },
+      { id: 'a-6', name: 'Olives', price: 1.00 },
+      { id: 'a-6a', name: 'Mushroom', price: 1.50 }
     ],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -173,13 +229,14 @@ const INITIAL_DISHES: Dish[] = [
     preparationTimeMinutes: 10,
     tags: ['Spicy', 'Vegan Option'],
     variants: [
-      { id: 'v-5', name: 'Regular Portion', price: 13.99 },
-      { id: 'v-6', name: 'Large Portion (+ $3.00)', price: 16.99 }
+      { id: 'v-5', name: 'Mild', price: 13.99 },
+      { id: 'v-6', name: 'Medium (+ $1.00)', price: 14.99 },
+      { id: 'v-6a', name: 'Hot (+ $2.00)', price: 15.99 }
     ],
     addons: [
-      { id: 'a-7', name: 'Soft-Boiled Ramen Egg', price: 1.50 },
-      { id: 'a-8', name: 'Pan-Seared Tofu Blocks', price: 2.50 },
-      { id: 'a-9', name: 'Braised Minced Shiitake', price: 2.00 }
+      { id: 'a-7', name: 'Extra Veggies', price: 1.50 },
+      { id: 'a-8', name: 'Extra Sauce', price: 1.00 },
+      { id: 'a-9', name: 'Protein Add-on', price: 3.50 }
     ],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -399,7 +456,30 @@ export const getDishes = (): Dish[] => {
   
   // Self-heal/update the burger dish configuration in localStorage if it is legacy or missing fields
   let updatedLocal = false;
-  const burgerIndex = data.findIndex(d => d.slug === 'truffle-beef-burger');
+  
+  // Fix legacy slug
+  const legacyBurgerIndex = data.findIndex(d => d.slug === 'truffle-beef-burger' || d.slug === 'burger');
+  if (legacyBurgerIndex > -1) {
+    data[legacyBurgerIndex].slug = 'smoked-truffle-beef-burger';
+    updatedLocal = true;
+  }
+
+  // Self-heal variants for Pizza and Noodles if they match legacy
+  const pizzaIndex = data.findIndex(d => d.slug === 'margherita-extra');
+  if (pizzaIndex > -1 && data[pizzaIndex].variants[0]?.name === 'Personal 10"') {
+    data[pizzaIndex].variants = INITIAL_DISHES.find(d => d.slug === 'margherita-extra')?.variants || [];
+    data[pizzaIndex].addons = INITIAL_DISHES.find(d => d.slug === 'margherita-extra')?.addons || [];
+    updatedLocal = true;
+  }
+
+  const noodlesIndex = data.findIndex(d => d.slug === 'szechuan-chili-noodles');
+  if (noodlesIndex > -1 && data[noodlesIndex].variants[0]?.name === 'Regular Portion') {
+    data[noodlesIndex].variants = INITIAL_DISHES.find(d => d.slug === 'szechuan-chili-noodles')?.variants || [];
+    data[noodlesIndex].addons = INITIAL_DISHES.find(d => d.slug === 'szechuan-chili-noodles')?.addons || [];
+    updatedLocal = true;
+  }
+  
+  const burgerIndex = data.findIndex(d => d.slug === 'smoked-truffle-beef-burger');
   if (burgerIndex > -1) {
     const burger = data[burgerIndex];
     if (!burger.animationFrameSetId || burger.animationFrameCount !== 81 || !burger.cinematicConfig) {
@@ -411,7 +491,7 @@ export const getDishes = (): Dish[] => {
       burger.animationDesktopBasePath = '/cinematic/dishes/burger/desktop';
       burger.animationMobileBasePath = '/cinematic/dishes/burger/desktop';
       
-      const initialBurger = INITIAL_DISHES.find(d => d.slug === 'truffle-beef-burger');
+      const initialBurger = INITIAL_DISHES.find(d => d.slug === 'smoked-truffle-beef-burger');
       if (initialBurger) {
         burger.cinematicConfig = initialBurger.cinematicConfig;
       }
@@ -421,7 +501,7 @@ export const getDishes = (): Dish[] => {
 
   // Disable cinematic mode on all other dishes in local storage to enforce "only burger"
   data.forEach(dish => {
-    if (dish.slug !== 'truffle-beef-burger' && dish.supportsCinematicExperience) {
+    if (dish.slug !== 'smoked-truffle-beef-burger' && dish.supportsCinematicExperience) {
       dish.supportsCinematicExperience = false;
       updatedLocal = true;
     }

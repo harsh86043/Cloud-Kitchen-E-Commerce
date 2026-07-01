@@ -64,6 +64,14 @@ export interface Dish {
   createdAt: string;
   updatedAt: string;
   
+  calories?: number;
+  proteinGrams?: number;
+  carbsGrams?: number;
+  fatGrams?: number;
+  ingredients?: string[];
+  contains?: string[];
+  nutritionHighlights?: string[];
+  
   // Future cinematic asset placeholders
   animationPosterUrl?: string;
   animationFrameSetId?: string;

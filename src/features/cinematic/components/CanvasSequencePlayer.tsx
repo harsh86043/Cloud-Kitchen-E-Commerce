@@ -1,3 +1,4 @@
+"use client";
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -14,6 +15,7 @@ export interface CanvasSequencePlayerProps {
   hasErrors: boolean;
   className?: string;
   objectFit?: 'cover' | 'contain';
+  zoom?: number;
   onReady?: () => void;
 }
 
@@ -25,6 +27,7 @@ export default function CanvasSequencePlayer({
   hasErrors,
   className = '',
   objectFit = 'cover',
+  zoom = 1,
   onReady
 }: CanvasSequencePlayerProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -126,7 +129,11 @@ export default function CanvasSequencePlayer({
         );
       } else {
         // contain
-        const scale = Math.min(width / iw, height / ih);
+        let scale = Math.min(width / iw, height / ih);
+        
+        // Apply responsive zoom
+        scale = scale * zoom;
+        
         const nw = iw * scale;
         const nh = ih * scale;
         const dx = (width - nw) / 2;

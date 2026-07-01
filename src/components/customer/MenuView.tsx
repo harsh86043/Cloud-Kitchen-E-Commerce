@@ -11,7 +11,7 @@ import { Dish, Category } from '../../types';
 import { useToast } from '../ui/Toast';
 
 export default function MenuView() {
-  const { setView, setSelectedDishSlug, addToCart } = useAppStore();
+  const { setView, setSelectedDishSlug, addToCart, openCustomizer } = useAppStore();
   const { showToast } = useToast();
 
   const [dishes, setDishes] = useState<Dish[]>([]);
@@ -29,11 +29,8 @@ export default function MenuView() {
   }, []);
 
   const handleAddToCartDirect = (dish: Dish) => {
-    // If the dish has variants or addons, force them to go to details to customize
     if (dish.variants.length > 0 || dish.addons.length > 0) {
-      setSelectedDishSlug(dish.slug);
-      setView('dish');
-      showToast(`Select your customization for ${dish.name}`, 'info');
+      openCustomizer(dish);
     } else {
       addToCart(dish, undefined, [], 1);
       showToast(`${dish.name} added to your cart!`, 'success');
@@ -170,7 +167,17 @@ export default function MenuView() {
                 } overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between`}
               >
                 {/* Image Box */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <div 
+                  className="relative aspect-[4/3] overflow-hidden bg-slate-100 dark:bg-slate-800 cursor-pointer"
+                  onClick={() => {
+                    setSelectedDishSlug(dish.slug);
+                    if (dish.supportsCinematicExperience && dish.cinematicConfig?.forceCinematicPage) {
+                      setView('cinematic');
+                    } else {
+                      setView('dish');
+                    }
+                  }}
+                >
                   <img
                     src={dish.imageUrl}
                     alt={dish.name}
@@ -261,7 +268,11 @@ export default function MenuView() {
                         <button
                           onClick={() => {
                             setSelectedDishSlug(dish.slug);
-                            setView('dish');
+                            if (dish.supportsCinematicExperience && dish.cinematicConfig?.forceCinematicPage) {
+                              setView('cinematic');
+                            } else {
+                              setView('dish');
+                            }
                           }}
                           className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold rounded-xl transition-all"
                           title="View dish specifications"

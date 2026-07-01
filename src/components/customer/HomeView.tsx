@@ -136,7 +136,17 @@ export default function HomeView() {
               className="group bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col hover:-translate-y-1"
             >
               {/* Image Box */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-slate-100 dark:bg-slate-800">
+              <div 
+                className="relative aspect-[4/3] overflow-hidden bg-slate-100 dark:bg-slate-800 cursor-pointer"
+                onClick={() => {
+                  setSelectedDishSlug(dish.slug);
+                  if (dish.slug === 'smoked-truffle-beef-burger' || dish.slug === 'burger') {
+                    setView('cinematic');
+                  } else {
+                    setView('dish');
+                  }
+                }}
+              >
                 <img
                   src={dish.imageUrl}
                   alt={dish.name}
@@ -196,7 +206,11 @@ export default function HomeView() {
                   <button
                     onClick={() => {
                       setSelectedDishSlug(dish.slug);
-                      setView('dish');
+                      if (dish.slug === 'smoked-truffle-beef-burger' || dish.slug === 'burger') {
+                        setView('cinematic');
+                      } else {
+                        setView('dish');
+                      }
                     }}
                     className="px-4 py-2 bg-slate-950 hover:bg-orange-500 hover:text-white dark:bg-slate-800 dark:hover:bg-orange-500 text-white text-xs font-bold rounded-xl transition-all"
                   >

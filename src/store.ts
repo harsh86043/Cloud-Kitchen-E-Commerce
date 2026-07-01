@@ -10,6 +10,7 @@ export type AppView =
   | 'home'
   | 'menu'
   | 'dish'
+  | 'cinematic'
   | 'cart'
   | 'checkout'
   | 'confirmation'
@@ -30,6 +31,11 @@ interface AppStore {
   setRole: (role: UserRole) => void;
   setSelectedDishSlug: (slug: string | null) => void;
   setConfirmedOrderId: (id: string | null) => void;
+
+  // Customization State
+  activeCustomizationDish: Dish | null;
+  openCustomizer: (dish: Dish) => void;
+  closeCustomizer: () => void;
 
   // Cart State
   cartItems: CartItem[];
@@ -84,6 +90,11 @@ export const useAppStore = create<AppStore>((set, get) => ({
   },
   setSelectedDishSlug: (slug) => set({ selectedDishSlug: slug }),
   setConfirmedOrderId: (id) => set({ confirmedOrderId: id }),
+
+  // Customization State Initial Values
+  activeCustomizationDish: null,
+  openCustomizer: (dish) => set({ activeCustomizationDish: dish }),
+  closeCustomizer: () => set({ activeCustomizationDish: null }),
 
   // Cart State Initial Values
   cartItems: loadCartFromStorage(),

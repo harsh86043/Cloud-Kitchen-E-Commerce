@@ -1,0 +1,14 @@
+{
+  "id": "pizza-toppings-fall-desktop",
+  "dishId": "pizza",
+  "slug": "pizza",
+  "frameCount": 72,
+  "format": "webp",
+  "basePath": "/cinematic/dishes/pizza/desktop",
+  "filePrefix": "frame_",
+  "padLength": 4,
+  "posterUrl": "/cinematic/dishes/pizza/poster.webp",
+  "width": 1280,
+  "height": 720,
+  "objectFit": "contain"
+}

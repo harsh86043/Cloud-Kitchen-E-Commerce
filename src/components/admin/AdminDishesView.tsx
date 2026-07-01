@@ -578,7 +578,7 @@ export default function AdminDishesView() {
                           <label className="text-[10px] font-black uppercase tracking-wider text-slate-400">Desktop Base Path</label>
                           <input
                             type="text"
-                            placeholder="e.g. /cinematic/dishes/truffle-beef-burger/desktop"
+                            placeholder="e.g. /cinematic/dishes/burger/desktop"
                             value={animationDesktopBasePath}
                             onChange={(e) => setAnimationDesktopBasePath(e.target.value)}
                             className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono text-slate-800 dark:text-slate-200"
@@ -589,7 +589,7 @@ export default function AdminDishesView() {
                           <label className="text-[10px] font-black uppercase tracking-wider text-slate-400">Mobile Base Path</label>
                           <input
                             type="text"
-                            placeholder="e.g. /cinematic/dishes/truffle-beef-burger/mobile"
+                            placeholder="e.g. /cinematic/dishes/burger/mobile"
                             value={animationMobileBasePath}
                             onChange={(e) => setAnimationMobileBasePath(e.target.value)}
                             className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono text-slate-800 dark:text-slate-200"

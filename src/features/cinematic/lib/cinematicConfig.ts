@@ -7,6 +7,18 @@ import { CinematicFrameSet, CinematicDishConfig, CinematicSection } from '../typ
 
 // Mock frame sets for testing and demonstration
 export const DEMO_FRAME_SETS: Record<string, CinematicFrameSet> = {
+  'smoked-truffle-beef-burger': {
+    id: "burger-explode-desktop",
+    dishId: "burger",
+    frameCount: 81,
+    format: "webp",
+    basePath: "/cinematic/dishes/burger/desktop",
+    filePrefix: "frame_",
+    padLength: 4,
+    posterUrl: "/cinematic/dishes/burger/poster.webp",
+    width: 1920,
+    height: 1080,
+  },
   'truffle-beef-burger': {
     id: "burger-explode-desktop",
     dishId: "burger",
@@ -32,14 +44,14 @@ export const DEMO_FRAME_SETS: Record<string, CinematicFrameSet> = {
     height: 1080,
   },
   'margherita-extra': {
-    id: 'fs-pizza',
-    dishId: 'dish-2',
-    frameCount: 30,
+    id: 'pizza-toppings-fall-desktop',
+    dishId: 'pizza',
+    frameCount: 72,
     format: 'webp',
-    basePath: '/cinematic/dishes/margherita-extra/desktop',
+    basePath: '/cinematic/dishes/pizza/desktop',
     filePrefix: 'frame_',
     padLength: 4,
-    posterUrl: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=1200&auto=format&fit=crop&q=80',
+    posterUrl: '/cinematic/dishes/pizza/poster.webp',
   },
   'szechuan-chili-noodles': {
     id: 'fs-noodles',
@@ -55,70 +67,115 @@ export const DEMO_FRAME_SETS: Record<string, CinematicFrameSet> = {
 
 const DEFAULT_SECTIONS_BURGER: CinematicSection[] = [
   {
-    id: 'intro',
-    title: 'Hickory-Wood Char-Grill',
-    description: 'We grill our 150g grass-fed beef patty over raw embers to secure a deep, smoky crust while maintaining rich tenderness inside.',
-    startProgress: 0.05,
-    endProgress: 0.25,
+    id: 'hero',
+    title: 'Smoked Truffle Beef Burger',
+    description: '150g grass-fed beef, melted swiss cheese, wild mushrooms, and white truffle aioli.',
+    startProgress: 0,
+    endProgress: 0.18,
     placement: 'left',
-    badge: '100% Grass-Fed'
+    badge: 'Signature Burger'
   },
   {
-    id: 'cheese',
-    title: 'Wild Sautéed Mushrooms & Swiss',
-    description: 'A gourmet melt of thick, aged Swiss cheese over freshly shaved wild mushrooms sautéed in clarified organic butter.',
-    startProgress: 0.3,
-    endProgress: 0.5,
+    id: 'bun',
+    title: 'Toasted Brioche',
+    description: 'Glossy sesame brioche with a soft center, golden crust, and premium sesame finish.',
+    startProgress: 0.18,
+    endProgress: 0.35,
     placement: 'right',
-    badge: 'Double Melt'
+    badge: 'The Bun'
   },
   {
-    id: 'sauce',
-    title: 'Decadent White Truffle Aioli',
-    description: 'Organic egg yolks emulsified with cold-pressed garlic oil, fine sea salt, and highly fragrant white truffle paste.',
+    id: 'patty',
+    title: 'Double Smashed Patty',
+    description: 'Charred edges, juicy center, and melted cheese layered between rich smashed patties.',
+    startProgress: 0.35,
+    endProgress: 0.55,
+    placement: 'left',
+    badge: 'The Core'
+  },
+  {
+    id: 'fresh',
+    title: 'Fresh Crunch',
+    description: 'Lettuce, tomato, onion, and pickles add freshness, crunch, and balance.',
     startProgress: 0.55,
-    endProgress: 0.75,
-    placement: 'left',
-    badge: 'White Truffle'
+    endProgress: 0.72,
+    placement: 'right',
+    badge: 'The Toppings'
   },
   {
-    id: 'finish',
-    title: 'Toasted Brioche Bun',
-    description: 'Sealed on the flat top with pure sweet cream butter, keeping the crumb soft and elastic to capture every drop of truffle glaze.',
-    startProgress: 0.8,
-    endProgress: 1.0,
+    id: 'nutrition',
+    title: '740 Calories',
+    description: 'A filling gourmet burger with 38g protein, 52g carbs, and 42g fat.',
+    startProgress: 0.72,
+    endProgress: 0.88,
+    placement: 'left',
+    badge: 'Nutrition'
+  },
+  {
+    id: 'order',
+    title: 'Ready to Order?',
+    description: 'Add the burger to your cart and complete checkout in seconds.',
+    startProgress: 0.88,
+    endProgress: 1,
     placement: 'right',
-    badge: 'Artisanal Brioche'
+    badge: 'Order Now'
   }
 ];
 
 const DEFAULT_SECTIONS_PIZZA: CinematicSection[] = [
   {
-    id: 'p-dough',
-    title: '48-Hour Stone-Baked Crust',
-    description: 'Our proprietary slow-fermented dough is hand-stretched and baked at 450°C in our custom stone oven for beautiful leopard-spot charring.',
-    startProgress: 0.05,
-    endProgress: 0.3,
-    placement: 'left',
-    badge: 'Sourdough'
+    id: "hero",
+    placement: "left",
+    badge: "Stone-Oven Pizza",
+    title: "Margherita Extra Pizza",
+    description: "A premium pizza base layered with tomato sauce, melted mozzarella, and fresh toppings.",
+    startProgress: 0,
+    endProgress: 0.18
   },
   {
-    id: 'p-cheese',
-    title: 'Milky Buffalo Mozzarella',
-    description: 'Hand-torn fresh Italian buffalo mozzarella melts into creamy, luxurious pockets on the tart San Marzano base.',
+    id: "cheese",
+    placement: "right",
+    badge: "The Base",
+    title: "Melted Mozzarella",
+    description: "A rich cheese layer gives every slice a soft, glossy, satisfying pull.",
+    startProgress: 0.18,
+    endProgress: 0.35
+  },
+  {
+    id: "vegetables",
+    placement: "left",
+    badge: "Fresh Toppings",
+    title: "Colorful Vegetables",
+    description: "Bell peppers, onions, olives, jalapeños, and tomato pieces add freshness and depth.",
     startProgress: 0.35,
-    endProgress: 0.65,
-    placement: 'right',
-    badge: 'Fresh Buffalo'
+    endProgress: 0.55
   },
   {
-    id: 'p-oil',
-    title: 'Cold-Pressed Basil Infusion',
-    description: 'Drizzled right out of the oven with premium early-harvest Sicilian olive oil and scattered with fresh-plucked organic sweet basil.',
-    startProgress: 0.7,
-    endProgress: 1.0,
-    placement: 'left',
-    badge: 'Cold-Pressed'
+    id: "seasoning",
+    placement: "right",
+    badge: "Final Finish",
+    title: "Oregano & Chilli Flakes",
+    description: "A final rain of herbs and chilli flakes brings aroma, heat, and restaurant-style flavor.",
+    startProgress: 0.55,
+    endProgress: 0.75
+  },
+  {
+    id: "nutrition",
+    placement: "left",
+    badge: "Nutrition",
+    title: "Freshly Baked",
+    description: "A balanced gourmet pizza with crisp crust, creamy cheese, and vibrant toppings.",
+    startProgress: 0.75,
+    endProgress: 0.9
+  },
+  {
+    id: "order",
+    placement: "right",
+    badge: "Order Now",
+    title: "Ready to Serve",
+    description: "Add this pizza to your cart and customize size, cheese, and toppings before checkout.",
+    startProgress: 0.9,
+    endProgress: 1
   }
 ];
 
@@ -153,13 +210,21 @@ const DEFAULT_SECTIONS_NOODLES: CinematicSection[] = [
 ];
 
 export const DEMO_CONFIGS: Record<string, CinematicDishConfig> = {
+  'smoked-truffle-beef-burger': {
+    frameSetId: 'burger-explode-desktop',
+    enabled: true,
+    sections: DEFAULT_SECTIONS_BURGER,
+    fallbackPosterUrl: '/cinematic/dishes/burger/poster.webp',
+    minDesktopWidth: 768,
+    disableOnLowEndDevice: false,
+  },
   'truffle-beef-burger': {
     frameSetId: 'burger-explode-desktop',
     enabled: true,
     sections: DEFAULT_SECTIONS_BURGER,
     fallbackPosterUrl: '/cinematic/dishes/burger/poster.webp',
     minDesktopWidth: 768,
-    disableOnLowEndDevice: true,
+    disableOnLowEndDevice: false,
   },
   'burger': {
     frameSetId: 'burger-explode-desktop',
@@ -167,15 +232,15 @@ export const DEMO_CONFIGS: Record<string, CinematicDishConfig> = {
     sections: DEFAULT_SECTIONS_BURGER,
     fallbackPosterUrl: '/cinematic/dishes/burger/poster.webp',
     minDesktopWidth: 768,
-    disableOnLowEndDevice: true,
+    disableOnLowEndDevice: false,
   },
   'margherita-extra': {
-    frameSetId: 'fs-pizza',
+    frameSetId: 'pizza-toppings-fall-desktop',
     enabled: true,
     sections: DEFAULT_SECTIONS_PIZZA,
-    fallbackPosterUrl: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=1200&auto=format&fit=crop&q=80',
+    fallbackPosterUrl: '/cinematic/dishes/pizza/poster.webp',
     minDesktopWidth: 768,
-    disableOnLowEndDevice: true,
+    disableOnLowEndDevice: false,
   },
   'szechuan-chili-noodles': {
     frameSetId: 'fs-noodles',

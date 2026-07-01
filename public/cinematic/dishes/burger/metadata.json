@@ -10,5 +10,5 @@
   "posterUrl": "/cinematic/dishes/burger/poster.webp",
   "width": 1920,
   "height": 1080,
-  "objectFit": "cover"
+  "objectFit": "contain"
 }

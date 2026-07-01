@@ -1,3 +1,4 @@
+"use client";
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -16,6 +17,7 @@ interface CinematicStageProps {
   isPreloadingComplete: boolean;
   preloadProgress: number;
   hasErrors: boolean;
+  zoom?: number;
   onReady?: () => void;
 }
 
@@ -27,6 +29,7 @@ export default function CinematicStage({
   isPreloadingComplete,
   preloadProgress,
   hasErrors,
+  zoom = 1,
   onReady
 }: CinematicStageProps) {
   return (
@@ -39,7 +42,8 @@ export default function CinematicStage({
         loadedFrames={loadedFrames}
         posterImage={posterImage}
         hasErrors={hasErrors}
-        objectFit="cover"
+        objectFit="contain"
+        zoom={zoom}
         onReady={onReady}
         className="transition-transform duration-300"
       />
@@ -53,23 +57,9 @@ export default function CinematicStage({
 
       {/* Preloading Overlay */}
       {!isPreloadingComplete && (
-        <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-20">
-          <div className="relative w-16 h-16 flex items-center justify-center">
-            {/* Pulsing ring */}
-            <div className="absolute inset-0 border-2 border-orange-500/20 rounded-full animate-ping" />
-            {/* Spinning ring */}
-            <div className="absolute inset-0 border-2 border-t-orange-500 border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin" />
-            <span className="font-mono text-[10px] font-bold text-orange-400">{preloadProgress}%</span>
-          </div>
-          
-          <div className="mt-6 space-y-1.5">
-            <h4 className="text-sm font-black text-slate-100 tracking-wide uppercase">
-              Formulating Cinematic 3D Layer
-            </h4>
-            <p className="text-xs text-slate-400 max-w-xs leading-normal">
-              Loading interactive high-density culinary vectors for real-time scroll rendering...
-            </p>
-          </div>
+        <div className="absolute inset-0 bg-[#050505] flex flex-col items-center justify-center z-20">
+          <div className="w-8 h-8 border-2 border-orange-500/20 border-t-orange-500 rounded-full animate-spin mb-4" />
+          <span className="font-mono text-xs font-bold text-slate-500">{preloadProgress}%</span>
         </div>
       )}
 
@@ -78,16 +68,10 @@ export default function CinematicStage({
         <div className="absolute top-4 left-4 z-10 px-2.5 py-1 bg-slate-900/80 backdrop-blur border border-slate-800 rounded-lg flex items-center gap-1.5 pointer-events-none">
           <Sparkles className="w-3.5 h-3.5 text-orange-400" />
           <span className="text-[9px] font-bold text-slate-300 font-mono uppercase tracking-wider">
-            Static 3D Parallax Active
+            Static Parallax Active
           </span>
         </div>
       )}
-
-      {/* Live Stage Frame Identifier for Tech Vibe (Aesthetic metadata) */}
-      <div className="absolute bottom-4 left-4 z-10 font-mono text-[9px] text-slate-500 flex items-center gap-1.5 pointer-events-none">
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-        <span>STAGE ACTIVE • FRAME_{Math.min(frameSet.frameCount, Math.max(1, Math.round(progress * (frameSet.frameCount - 1) + 1))).toString().padStart(4, '0')}</span>
-      </div>
 
     </div>
   );

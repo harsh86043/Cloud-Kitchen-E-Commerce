@@ -44,6 +44,7 @@ export interface CinematicDishConfig {
   enabled: boolean;
   sections: CinematicSection[];
   fallbackPosterUrl: string;
+  forceCinematicPage?: boolean;
   minDesktopWidth?: number;
   disableOnLowEndDevice?: boolean;
 }
